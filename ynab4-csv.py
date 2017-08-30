@@ -45,10 +45,12 @@ def parse_file(inputfile):
     #2017-08-29	2017-08-29	Card (date, date, type)
 
     rows = []
-    c = re.compile(r"^(.+)\n([0-9 -]+,[0-9-]+)[0-9 ,\t]+\n[\d]{4}-[\d]{2}-[\d]{2}\t([\d]{4}-[\d]{2}-[\d]{2})\t.*$", re.MULTILINE)
+    #c = re.compile(r"^(.+)\n([0-9 -]+,[0-9-]+)[0-9 ,\t]+\n[\d]{4}-[\d]{2}-[\d]{2}\t([\d]{4}-[\d]{2}-[\d]{2})\t.*$", re.MULTILINE)
+    c = re.compile(r"^[\d]{4}-[\d]{2}-[\d]{2}\t([\d]{4}-[\d]{2}-[\d]{2})\t.*\n(.+)\n([0-9 -]+,[0-9-]+)[0-9 ,\t]+$", re.MULTILINE)
 
     for match in c.finditer(content):
-        payee, amount, datestamp = match.groups()
+        #payee, amount, datestamp = match.groups()
+        datestamp, payee, amount = match.groups()
         row = format_row_from_fields(payee, amount, datestamp)
         rows.append(row)
 
